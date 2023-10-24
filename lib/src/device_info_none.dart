@@ -1,14 +1,21 @@
 import 'dart:async';
 
+// This class defines the interface for retrieving device information.
 abstract class DeviceInfo {
   // 2 asynchronous abstract methods, both of which will return futures of strings
-  Future<String> get aSyncSerial;
+  FutureOr<String> get aSyncSerial;
   Future<String> get id;
 
-
+  // This is a completer object, with a return type of string
   static Completer<String> serialCompleter = Completer<String>();
-  // The 'serial' will listen for any changes from the completer
-  static FutureOr<String> serial = serialCompleter.future;
+  // The 'serial' will listen for any changes from the 'serialCompleter'
+  static FutureOr<String> sSerial = serialCompleter.future;
+  // When serialCompleter.complete(val) then the sSerial holds the serial number
+
+  // 2 abstract properties on this 'interface' class
+  String get serial;
+  bool get isCompleted;
+
 
 }
 
