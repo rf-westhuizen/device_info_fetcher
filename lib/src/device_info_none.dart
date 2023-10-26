@@ -12,7 +12,7 @@ abstract class DeviceInfo {
   static FutureOr<String> sSerial = serialCompleter.future;
   // When serialCompleter.complete(val) then the sSerial holds the serial number
 
-  // 2 abstract properties on this 'interface' class
+  // 2 abstract properties for this 'interface' class
   String get serial;
   bool get isCompleted;
 

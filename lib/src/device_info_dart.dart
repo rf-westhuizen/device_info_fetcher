@@ -3,12 +3,12 @@ import 'dart:io';
 import 'device_info_none.dart';
 
 class DeviceInfoDart implements DeviceInfo {
+
   @override
-  /// TODO: get current pc serial
   FutureOr<String> get aSyncSerial {
 
   if(isCompleted){
-    return  serial;
+    return serial;
   } else{
     return Future.value(Platform.localHostname);
   }
@@ -16,7 +16,6 @@ class DeviceInfoDart implements DeviceInfo {
   }
 
   @override
-  /// TODO get current pc identifier
   //Future<String> get id => Future.value(Platform.operatingSystemVersion); // "Windows 10 Pro" 10.0 (Build 22621)
   Future<String> get id => Future.value(Platform.operatingSystem);
 
@@ -24,6 +23,7 @@ class DeviceInfoDart implements DeviceInfo {
   @override
   // TODO: if not completed throw an error
   String get serial {
+
   if (!DeviceInfo.serialCompleter.isCompleted){
     throw Exception('The IO serial property is not initialized'); // TODO: Implement Scotch ErrorOr return
   }
@@ -31,7 +31,6 @@ class DeviceInfoDart implements DeviceInfo {
   }
 
   @override
-  // TODO: implement isInitialized
   bool get isCompleted => DeviceInfo.serialCompleter.isCompleted;
 
 }
