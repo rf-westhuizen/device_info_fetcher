@@ -1,8 +1,10 @@
 import 'dart:async';
-import 'package:flutter_device_identifier/flutter_device_identifier.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'device_info_none.dart';
-
+// ignore: depend_on_referenced_packages
+import 'package:flutter/foundation.dart';
 class DeviceInfoFlutter implements DeviceInfo {
+  DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
 
   @override
   FutureOr<String> get aSyncSerial {
@@ -10,14 +12,30 @@ class DeviceInfoFlutter implements DeviceInfo {
     if(isCompleted){
       return serial;
     } else{
-      return Future.value(FlutterDeviceIdentifier.serialCode);
+      if(defaultTargetPlatform == TargetPlatform.android) {
+        return Future.value(deviceInfo.androidInfo.then((value) => value.serialNumber));
+      }
+      if(defaultTargetPlatform == TargetPlatform.windows) {
+        return Future.value(deviceInfo.windowsInfo.then((value) => value.computerName));
+      }
+      return Future.value("Not implemented");
     }
 
   }
 
   /// TODO: Check platform Id package as it can get android-, web-, windows- based ids
   @override
-  Future<String> get id async =>  await FlutterDeviceIdentifier.androidID;
+  Future<String> get id async {
+    switch(defaultTargetPlatform){
+      case TargetPlatform.android:
+        return (await deviceInfo.androidInfo).id;
+      case TargetPlatform.windows:
+        return (await deviceInfo.windowsInfo).deviceId;
+      default:
+        return "Not implemented";
+    }
+  }
+
 
 
   @override
