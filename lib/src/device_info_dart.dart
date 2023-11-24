@@ -43,8 +43,10 @@ DeviceInfo getDeviceInfo() {
   if(!DeviceInfo.serialCompleter.isCompleted || DeviceInfo.sSerial == ""){
 
     (val.aSyncSerial as Future).then((val) {
-      DeviceInfo.serialCompleter.complete(val);
-      DeviceInfo.sSerial = val;
+      if (!DeviceInfo.serialCompleter.isCompleted) {
+        DeviceInfo.serialCompleter.complete(val);
+        DeviceInfo.sSerial = val;
+      }
     });
 
   }

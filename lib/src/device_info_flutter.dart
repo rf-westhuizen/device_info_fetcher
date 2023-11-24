@@ -3,6 +3,7 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'device_info_none.dart';
 // ignore: depend_on_referenced_packages
 import 'package:flutter/foundation.dart';
+
 class DeviceInfoFlutter implements DeviceInfo {
   DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
 
@@ -58,8 +59,10 @@ DeviceInfo getDeviceInfo() {
   if(!DeviceInfo.serialCompleter.isCompleted || DeviceInfo.sSerial == ""){
 
     (val.aSyncSerial as Future).then((val) {
-       DeviceInfo.serialCompleter.complete(val);
-       DeviceInfo.sSerial = val;
+      if (!DeviceInfo.serialCompleter.isCompleted) {
+        DeviceInfo.serialCompleter.complete(val);
+        DeviceInfo.sSerial = val;
+      }
     });
 
   }
