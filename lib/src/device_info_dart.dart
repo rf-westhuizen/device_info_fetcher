@@ -42,6 +42,8 @@ DeviceInfo getDeviceInfo() {
 
   if(!DeviceInfo.serialCompleter.isCompleted || DeviceInfo.sSerial == ""){
 
+    // testing audit_db_package melos bootstrap
+
     (val.aSyncSerial as Future).then((val) {
       DeviceInfo.serialCompleter.complete(val);
       DeviceInfo.sSerial = val;
