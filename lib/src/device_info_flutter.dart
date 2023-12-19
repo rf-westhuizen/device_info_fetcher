@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:device_info_plus/device_info_plus.dart';
-import 'package:pos_link_api_v2/pos_link_api_v2.dart';
+import 'package:pax_api_plugin/pax_api_plugin.dart';
 import 'device_info_none.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
@@ -9,7 +9,7 @@ import 'package:flutter/services.dart';
 
 class DeviceInfoFlutter implements DeviceInfo {
 
-  final _posLinkApiV2Plugin = PosLinkApiV2();
+  final _posLinkApiV2Plugin = PaxApiPlugin();
   DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
 
   Future<String> getPosDeviceSerialNumber() async {

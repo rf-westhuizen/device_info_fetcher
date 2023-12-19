@@ -7,9 +7,8 @@ environment:
 
 dependencies:
   device_info_plus:
-  pos_link_api_v2:
-    path: ../pos_link_api_v2
-
+  pax_api_plugin:
+    path: ../pax_api_plugin
 
 dev_dependencies:
   lints: ^2.0.0

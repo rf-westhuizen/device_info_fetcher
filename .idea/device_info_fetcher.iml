@@ -54,6 +54,12 @@
       <excludeFolder url="file://$MODULE_DIR$/flutter_implementation/windows/flutter/ephemeral/.plugin_symlinks/pos_link_api_v2/example/build" />
       <excludeFolder url="file://$MODULE_DIR$/flutter_implementation/windows/flutter/ephemeral/.plugin_symlinks/pos_link_api_v2/example/.dart_tool" />
       <excludeFolder url="file://$MODULE_DIR$/flutter_implementation/windows/flutter/ephemeral/.plugin_symlinks/pos_link_api_v2/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/flutter_implementation/windows/flutter/ephemeral/.plugin_symlinks/pax_api_plugin/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/flutter_implementation/windows/flutter/ephemeral/.plugin_symlinks/pax_api_plugin/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/flutter_implementation/windows/flutter/ephemeral/.plugin_symlinks/pax_api_plugin/build" />
+      <excludeFolder url="file://$MODULE_DIR$/flutter_implementation/windows/flutter/ephemeral/.plugin_symlinks/pax_api_plugin/example/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/flutter_implementation/windows/flutter/ephemeral/.plugin_symlinks/pax_api_plugin/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/flutter_implementation/windows/flutter/ephemeral/.plugin_symlinks/pax_api_plugin/example/.pub" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

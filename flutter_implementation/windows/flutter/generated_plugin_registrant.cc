@@ -6,9 +6,9 @@
 
 #include "generated_plugin_registrant.h"
 
-#include <pos_link_api_v2/pos_link_api_v2_plugin_c_api.h>
+#include <pax_api_plugin/pax_api_plugin_c_api.h>
 
 void RegisterPlugins(flutter::PluginRegistry* registry) {
-  PosLinkApiV2PluginCApiRegisterWithRegistrar(
-      registry->GetRegistrarForPlugin("PosLinkApiV2PluginCApi"));
+  PaxApiPluginCApiRegisterWithRegistrar(
+      registry->GetRegistrarForPlugin("PaxApiPluginCApi"));
 }
