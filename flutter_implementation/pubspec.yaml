@@ -13,6 +13,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   device_info_fetcher:
     path: ../../device_info_fetcher
+  pos_link_api_v2:
+    path: ../../pos_link_api_v2
 
 dev_dependencies:
   flutter_test:

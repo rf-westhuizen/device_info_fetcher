@@ -40,13 +40,13 @@ DeviceInfo getDeviceInfo() {
 
   DeviceInfoDart val = DeviceInfoDart();
 
-  if(!DeviceInfo.serialCompleter.isCompleted || DeviceInfo.sSerial == ""){
+  if(!DeviceInfo.serialCompleter.isCompleted){
 
     (val.aSyncSerial as Future).then((val) {
       if (!DeviceInfo.serialCompleter.isCompleted) {
         DeviceInfo.serialCompleter.complete(val);
-        DeviceInfo.sSerial = val;
       }
+      DeviceInfo.sSerial = val;
     });
 
   }
