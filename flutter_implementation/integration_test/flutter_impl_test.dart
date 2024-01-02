@@ -20,6 +20,7 @@ import 'package:integration_test/integration_test.dart';
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
   group('Different architecture', () {
+
     test('running on windows', () async {
       expect(Platform.isWindows, isTrue);
       final devInfo = getDeviceInfo();
@@ -44,6 +45,7 @@ void main() {
           || hwId.contains(pos9310Id)
           , isTrue);
     }, testOn: 'windows');
+
   }
   );
 }

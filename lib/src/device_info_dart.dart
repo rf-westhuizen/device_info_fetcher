@@ -40,12 +40,14 @@ DeviceInfo getDeviceInfo() {
 
   DeviceInfoDart val = DeviceInfoDart();
 
-  if(!DeviceInfo.serialCompleter.isCompleted || DeviceInfo.sSerial == ""){
+  if(!DeviceInfo.serialCompleter.isCompleted){
 
     // testing audit_db_package melos bootstrap
 
     (val.aSyncSerial as Future).then((val) {
-      DeviceInfo.serialCompleter.complete(val);
+      if (!DeviceInfo.serialCompleter.isCompleted) {
+        DeviceInfo.serialCompleter.complete(val);
+      }
       DeviceInfo.sSerial = val;
     });
 

@@ -3,11 +3,12 @@ description: A starting point for Dart libraries or applications.
 version: 1.0.1
 
 environment:
-  sdk: '>=3.1.6 <4.0.0'
+  sdk: '>=3.1.3 <4.0.0'
 
 dependencies:
   device_info_plus:
-  uuid:
+  pax_api_plugin:
+    path: ../pax_api_plugin
 
 dev_dependencies:
   lints: ^2.0.0
