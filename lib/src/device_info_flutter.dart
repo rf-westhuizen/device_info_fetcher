@@ -3,7 +3,9 @@ import 'dart:convert';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:pax_api_plugin/pax_api_plugin.dart';
 import 'device_info_none.dart';
+// ignore: depend_on_referenced_packages
 import 'package:flutter/foundation.dart';
+// ignore: depend_on_referenced_packages
 import 'package:flutter/services.dart';
 
 
