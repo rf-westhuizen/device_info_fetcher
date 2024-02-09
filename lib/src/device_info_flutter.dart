@@ -8,17 +8,14 @@ import 'package:flutter/foundation.dart';
 // ignore: depend_on_referenced_packages
 import 'package:flutter/services.dart';
 
-
 class DeviceInfoFlutter implements DeviceInfo {
-
   final _posLinkApiV2Plugin = PaxApiPlugin();
   DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
 
   Future<String> getPosDeviceSerialNumber() async {
-
     try {
-
-      final String deviceModel = await deviceInfo.androidInfo.then((value) => value.model);
+      final String deviceModel =
+          await deviceInfo.androidInfo.then((value) => value.model);
 
       switch (deviceModel) {
         case 'IM30':
@@ -28,7 +25,9 @@ class DeviceInfoFlutter implements DeviceInfo {
         case 'A920':
         case 'PAX920':
           {
-            final String serialNumber = await _posLinkApiV2Plugin.getSerialNumber()  ?? 'Could Not Obtain';
+            final String serialNumber =
+                await _posLinkApiV2Plugin.getSerialNumber() ??
+                    'Could Not Obtain';
             final Map<String, dynamic> decoded = json.decode(serialNumber);
             final String sn = decoded['sn'] ?? "failing";
             return sn;
@@ -36,7 +35,8 @@ class DeviceInfoFlutter implements DeviceInfo {
         case 'NEW9310':
         case 'NEW9220':
           {
-            return Future.value(deviceInfo.androidInfo.then((value) => value.serialNumber));
+            return Future.value(
+                deviceInfo.androidInfo.then((value) => value.serialNumber));
           }
         default:
           {
@@ -50,25 +50,24 @@ class DeviceInfoFlutter implements DeviceInfo {
 
   @override
   FutureOr<String> get aSyncSerial {
-
-    if(isCompleted){
+    if (isCompleted) {
       return serial;
     } else {
-      if(defaultTargetPlatform == TargetPlatform.android) {
+      if (defaultTargetPlatform == TargetPlatform.android) {
         return getPosDeviceSerialNumber();
       }
-      if(defaultTargetPlatform == TargetPlatform.windows) {
-        return Future.value(deviceInfo.windowsInfo.then((value) => value.computerName));
+      if (defaultTargetPlatform == TargetPlatform.windows) {
+        return Future.value(
+            deviceInfo.windowsInfo.then((value) => value.computerName));
       }
       return Future.value("Not implemented");
     }
-
   }
 
   /// TODO: Check platform Id package as it can get android-, web-, windows- based ids
   @override
   Future<String> get id async {
-    switch(defaultTargetPlatform){
+    switch (defaultTargetPlatform) {
       case TargetPlatform.android:
         return (await deviceInfo.androidInfo).id;
       case TargetPlatform.windows:
@@ -78,37 +77,29 @@ class DeviceInfoFlutter implements DeviceInfo {
     }
   }
 
-
-
   @override
   String get serial {
-    if(!DeviceInfo.serialCompleter.isCompleted){
-      throw Exception('The UI serial property is not initialized'); // TODO: Implement Scotch ErrorOr return
+    if (!DeviceInfo.serialCompleter.isCompleted) {
+      throw Exception(
+          'The UI serial property is not initialized'); // TODO: Implement Scotch ErrorOr return
     }
     return DeviceInfo.sSerial as String;
   }
 
   @override
   bool get isCompleted => DeviceInfo.serialCompleter.isCompleted;
-
 }
 
 DeviceInfo getDeviceInfo() {
-
   DeviceInfoFlutter val = DeviceInfoFlutter();
 
-  if(!DeviceInfo.serialCompleter.isCompleted){
-
+  if (!DeviceInfo.serialCompleter.isCompleted) {
     (val.aSyncSerial as Future).then((val) {
       if (!DeviceInfo.serialCompleter.isCompleted) {
         DeviceInfo.serialCompleter.complete(val);
       }
       DeviceInfo.sSerial = val;
     });
-
   }
   return val;
 }
-
-
-

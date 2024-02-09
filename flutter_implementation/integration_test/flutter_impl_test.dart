@@ -18,7 +18,6 @@ import 'package:integration_test/integration_test.dart';
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
   group('Different architecture', () {
-
     test('running on windows', () async {
       expect(Platform.isWindows, isTrue);
       final devInfo = getDeviceInfo();
@@ -37,13 +36,12 @@ void main() {
       const pos9220Id = '922';
       const pos9310Id = '931';
 
-      final hwId = valueReceived.substring(0,3);
-      expect(hwId.contains(paxHwId)
-          || hwId.contains(pos9220Id)
-          || hwId.contains(pos9310Id)
-          , isTrue);
+      final hwId = valueReceived.substring(0, 3);
+      expect(
+          hwId.contains(paxHwId) ||
+              hwId.contains(pos9220Id) ||
+              hwId.contains(pos9310Id),
+          isTrue);
     }, testOn: 'windows');
-
-  }
-  );
+  });
 }
