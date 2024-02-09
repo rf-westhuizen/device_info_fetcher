@@ -14,10 +14,6 @@ dependencies:
   device_info_fetcher:
     path: ../../device_info_fetcher
 
-dependency_overrides:
-  pax_api_plugin :
-    git: https://github.com/Flutter-Apps-pty/pax_api_plugin.git
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
