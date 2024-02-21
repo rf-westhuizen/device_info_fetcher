@@ -8,6 +8,8 @@ import 'package:flutter/foundation.dart';
 // ignore: depend_on_referenced_packages
 import 'package:flutter/services.dart';
 
+import 'enum/device_type.dart';
+
 class DeviceInfoFlutter implements DeviceInfo {
   final _posLinkApiV2Plugin = PaxApiPlugin();
   DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
@@ -48,9 +50,35 @@ class DeviceInfoFlutter implements DeviceInfo {
     }
   }
 
+  Future<DeviceType> getDeviceType() async {
+    if (defaultTargetPlatform == TargetPlatform.android) {
+      final String deviceModel = await deviceInfo.androidInfo.then((
+          value) => value.model);
+
+      switch (deviceModel) {
+        case 'IM30':
+        case 'A50':
+        case 'A35':
+        case 'A920Pro':
+        case 'A920':
+        case 'PAX920':
+          return DeviceType.pax;
+        case 'NEW9310':
+        case 'NEW9220':
+          return DeviceType.newPos;
+        default:
+          return DeviceType
+              .android;
+      }
+    } else if (defaultTargetPlatform == TargetPlatform.windows) {
+      return DeviceType.windows;
+    }
+    return DeviceType.web;
+  }
+
   @override
   FutureOr<String> get aSyncSerial {
-    if (isCompleted) {
+    if (isSerialCompleted) {
       return serial;
     } else {
       if (defaultTargetPlatform == TargetPlatform.android) {
@@ -61,6 +89,21 @@ class DeviceInfoFlutter implements DeviceInfo {
             deviceInfo.windowsInfo.then((value) => value.computerName));
       }
       return Future.value("Not implemented");
+    }
+  }
+
+  @override
+  FutureOr<DeviceType> get aType  {
+    if (isTypeCompleted) {
+      return deviceType;
+    } else {
+      if (defaultTargetPlatform == TargetPlatform.android) {
+        return getDeviceType();
+      }
+      if (defaultTargetPlatform == TargetPlatform.windows) {
+        return Future.value(DeviceType.windows);
+      }
+      return Future.value(DeviceType.web);
     }
   }
 
@@ -87,7 +130,20 @@ class DeviceInfoFlutter implements DeviceInfo {
   }
 
   @override
-  bool get isCompleted => DeviceInfo.serialCompleter.isCompleted;
+  DeviceType get deviceType {
+    if (!DeviceInfo.typeCompleter.isCompleted) {
+      throw Exception(
+          'The UI type property is not initialized'); // TODO: Implement Scotch ErrorOr return
+    }
+    return DeviceInfo.sType as DeviceType;
+  }
+
+  @override
+  bool get isSerialCompleted => DeviceInfo.serialCompleter.isCompleted;
+
+
+  @override
+  bool get isTypeCompleted => DeviceInfo.typeCompleter.isCompleted;
 }
 
 DeviceInfo getDeviceInfo() {
@@ -101,5 +157,15 @@ DeviceInfo getDeviceInfo() {
       DeviceInfo.sSerial = val;
     });
   }
+
+  if (!DeviceInfo.typeCompleter.isCompleted) {
+    (val.aType as Future).then((val) {
+      if (!DeviceInfo.typeCompleter.isCompleted) {
+        DeviceInfo.typeCompleter.complete(val);
+      }
+      DeviceInfo.sType = val;
+    });
+  }
+
   return val;
 }

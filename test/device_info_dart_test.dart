@@ -20,7 +20,7 @@ void main() {
     test('isCompleted finished:', () async {
       getDeviceInfo();
       await Future.delayed(const Duration(seconds: 1));
-      bool valueReceived = getDeviceInfo().isCompleted;
+      bool valueReceived = getDeviceInfo().isSerialCompleted;
       expect(valueReceived, true);
     });
 

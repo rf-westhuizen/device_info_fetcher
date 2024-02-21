@@ -1,11 +1,13 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:device_info_fetcher/src/enum/device_type.dart';
+
 import 'device_info_none.dart';
 
 class DeviceInfoDart implements DeviceInfo {
   @override
   FutureOr<String> get aSyncSerial {
-    if (isCompleted) {
+    if (isSerialCompleted) {
       return serial;
     } else {
       return Future.value(Platform.localHostname);
@@ -27,20 +29,50 @@ class DeviceInfoDart implements DeviceInfo {
   }
 
   @override
-  bool get isCompleted => DeviceInfo.serialCompleter.isCompleted;
+  bool get isSerialCompleted => DeviceInfo.serialCompleter.isCompleted;
+  @override
+  bool get isTypeCompleted => DeviceInfo.typeCompleter.isCompleted;
+
+  @override
+  // TODO: implement aType
+  FutureOr<DeviceType> get aType {
+    if (isTypeCompleted) {
+      return deviceType;
+    } else {
+      return Future.value(Platform.localHostname as FutureOr<DeviceType>?);
+    }
+  }
+
+  @override
+  // TODO: implement deviceType
+  DeviceType get deviceType {
+    if (!DeviceInfo.typeCompleter.isCompleted) {
+      throw Exception(
+          'The IO type property is not initialized'); // TODO: Implement Scotch ErrorOr return
+    }
+    return DeviceInfo.sType as DeviceType;
+  }
+
 }
 
 DeviceInfo getDeviceInfo() {
   DeviceInfoDart val = DeviceInfoDart();
 
   if (!DeviceInfo.serialCompleter.isCompleted) {
-    // testing audit_db_package melos bootstrap
-
     (val.aSyncSerial as Future).then((val) {
       if (!DeviceInfo.serialCompleter.isCompleted) {
         DeviceInfo.serialCompleter.complete(val);
       }
       DeviceInfo.sSerial = val;
+    });
+  }
+
+  if (!DeviceInfo.typeCompleter.isCompleted) {
+    (val.aType as Future).then((val) {
+      if (!DeviceInfo.typeCompleter.isCompleted) {
+        DeviceInfo.typeCompleter.complete(val);
+      }
+      DeviceInfo.sType = val;
     });
   }
   return val;
