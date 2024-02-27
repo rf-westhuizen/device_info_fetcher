@@ -11,6 +11,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Set up Git with PAT
+        run: |
+          git config --global --add url."https://USERNAME:${{ secrets.ORG_PAT }}@github.com/".insteadOf "https://github.com/"
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.16.9'

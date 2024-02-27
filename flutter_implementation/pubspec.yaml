@@ -14,16 +14,9 @@ dependencies:
   device_info_fetcher:
     path: ../../device_info_fetcher
 
-dev_dependencies:
-  flutter_test:
-    sdk: flutter
-  integration_test:
-    sdk: flutter
-  flutter_lints: ^2.0.0
 
 
 flutter:
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

@@ -39,7 +39,7 @@ class DeviceInfoDart implements DeviceInfo {
     if (isTypeCompleted) {
       return deviceType;
     } else {
-      return Future.value(Platform.localHostname as FutureOr<DeviceType>?);
+      return Future.value(DeviceType.windows);
     }
   }
 
@@ -52,7 +52,6 @@ class DeviceInfoDart implements DeviceInfo {
     }
     return DeviceInfo.sType as DeviceType;
   }
-
 }
 
 DeviceInfo getDeviceInfo() {
