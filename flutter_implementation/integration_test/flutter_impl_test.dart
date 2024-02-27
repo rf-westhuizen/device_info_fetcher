@@ -10,9 +10,6 @@ import 'dart:io';
 
 import 'package:device_info_fetcher/device_info_fetcher.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-// ignore: unused_import
-import 'package:flutter_implementation/main.dart';
 import 'package:integration_test/integration_test.dart';
 
 void main() {
