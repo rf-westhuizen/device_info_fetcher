@@ -11,16 +11,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Set up Git with PAT
+        run: |
+          git config --global user.email "ha.vannieuwenhuizen@gmail.om"
+          git config --global user.name "Heinrich-vanNieuwenhuizen"
+          git config --global --add url."https://USERNAME:${{ secrets.MY_GITHUB_PAT }}@github.com/".insteadOf "https://github.com/"
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.16.9'
           channel: 'stable'
       - run: flutter --version
-      # Setup SSH agent for private repo access
-      - name: Setup SSH Agent
-        uses: webfactory/ssh-agent@v0.5.3
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+#      - uses: dart-lang/setup-dart@v1
+#        with:
+#          sdk-version: '>=3.2.4 <4.0.0'
       - run: dart pub get
       - run: dart format --output=none --set-exit-if-changed .
       - run: dart analyze
