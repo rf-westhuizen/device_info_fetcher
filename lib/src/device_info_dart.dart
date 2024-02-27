@@ -52,7 +52,6 @@ class DeviceInfoDart implements DeviceInfo {
     }
     return DeviceInfo.sType as DeviceType;
   }
-
 }
 
 DeviceInfo getDeviceInfo() {

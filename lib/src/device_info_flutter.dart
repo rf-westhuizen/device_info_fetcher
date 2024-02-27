@@ -52,8 +52,8 @@ class DeviceInfoFlutter implements DeviceInfo {
 
   Future<DeviceType> getDeviceType() async {
     if (defaultTargetPlatform == TargetPlatform.android) {
-      final String deviceModel = await deviceInfo.androidInfo.then((
-          value) => value.model);
+      final String deviceModel =
+          await deviceInfo.androidInfo.then((value) => value.model);
 
       switch (deviceModel) {
         case 'IM30':
@@ -67,8 +67,7 @@ class DeviceInfoFlutter implements DeviceInfo {
         case 'NEW9220':
           return DeviceType.newPos;
         default:
-          return DeviceType
-              .android;
+          return DeviceType.android;
       }
     } else if (defaultTargetPlatform == TargetPlatform.windows) {
       return DeviceType.windows;
@@ -93,7 +92,7 @@ class DeviceInfoFlutter implements DeviceInfo {
   }
 
   @override
-  FutureOr<DeviceType> get aType  {
+  FutureOr<DeviceType> get aType {
     if (isTypeCompleted) {
       return deviceType;
     } else {
@@ -140,7 +139,6 @@ class DeviceInfoFlutter implements DeviceInfo {
 
   @override
   bool get isSerialCompleted => DeviceInfo.serialCompleter.isCompleted;
-
 
   @override
   bool get isTypeCompleted => DeviceInfo.typeCompleter.isCompleted;
