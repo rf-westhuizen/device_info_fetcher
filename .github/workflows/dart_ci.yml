@@ -16,12 +16,12 @@ jobs:
           flutter-version: '3.16.9'
           channel: 'stable'
       - run: flutter --version
-#      - uses: dart-lang/setup-dart@v1
-#        with:
-#          sdk-version: '>=3.2.4 <4.0.0'
+      # Setup SSH agent for private repo access
+      - name: Setup SSH Agent
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - run: dart pub get
-        env:
-          GITHUB_PAT: ${{ secrets.MY_GITHUB_PAT }}  # Assuming you named your PAT secret 'MY_GITHUB_PAT'
       - run: dart format --output=none --set-exit-if-changed .
       - run: dart analyze
 
