@@ -13,6 +13,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   device_info_fetcher:
     path: ../../device_info_fetcher
+  flutter_test:
+    sdk: flutter
 
 dev_dependencies:
   flutter_test:
