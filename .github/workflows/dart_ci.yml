@@ -11,11 +11,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Set up Git with PAT
+      - name: Set up Git for the organization with the PAT
+        env:
+          ORG_PAT: ${{ secrets.MY_GITHUB_PAT }}
         run: |
-          git config --global user.email "ha.vannieuwenhuizen@gmail.om"
-          git config --global user.name "Heinrich-vanNieuwenhuizen"
-          git config --global --add url."https://USERNAME:${{ secrets.MY_GITHUB_PAT }}@github.com/".insteadOf "https://github.com/"
+          git config --global http.https://github.com/.extraheader "AUTHORIZATION: bearer $ORG_PAT"
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.16.9'
