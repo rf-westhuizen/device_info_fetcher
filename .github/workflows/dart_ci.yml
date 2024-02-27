@@ -20,6 +20,8 @@ jobs:
 #        with:
 #          sdk-version: '>=3.2.4 <4.0.0'
       - run: dart pub get
+        env:
+          GITHUB_PAT: ${{ secrets.MY_GITHUB_PAT }}  # Assuming you named your PAT secret 'MY_GITHUB_PAT'
       - run: dart format --output=none --set-exit-if-changed .
       - run: dart analyze
 
